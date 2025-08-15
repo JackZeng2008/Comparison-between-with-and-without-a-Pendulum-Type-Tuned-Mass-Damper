@@ -139,18 +139,18 @@ function dxdt = TMD_ode(t, x, M, C, K, m, l, cd, g, agFunc)
     dxdt = zeros(4,1);
     ag = agFunc(t); % Ground acceleration
     
-  % Mass matrix
+% Mass matrix
     massMatrix = [M,      m*l;  % Structure mass and coupling term
                  m*l, m*l^2];   % TMD inertia terms
     
-  % Force vector
+% Force vector
     forceVector = [-C*x(2) - K*x(1) - M*ag;  % Structure forces
                    -cd*x(4) - m*g*l*x(3) - m*l*ag]; % TMD forces
     
-  % Solve for accelerations
+% Solve for accelerations
     accelerations = massMatrix \ forceVector;
     
-  % State derivatives
+% State derivatives
     dxdt(1) = x(2);             % Structure velocity
     dxdt(2) = accelerations(1); % Structure acceleration
     dxdt(3) = x(4);             % Pendulum angular velocity
